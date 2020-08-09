@@ -1,0 +1,241 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="魔物">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="オリジナル" Type="bit" Nullable="false" />
+          <Property Name="SW25" Type="bit" Nullable="false" />
+          <Property Name="SW20" Type="bit" Nullable="false" />
+          <Property Name="出典" Type="text" Nullable="false" />
+          <Property Name="分類" Type="text" Nullable="false" />
+          <Property Name="タグ" Type="text" Nullable="false" />
+          <Property Name="LV" Type="int" Nullable="false" />
+          <Property Name="ネームド" Type="bit" Nullable="false" />
+          <Property Name="名前" Type="text" Nullable="false" />
+          <Property Name="名称" Type="text" Nullable="false" />
+          <Property Name="知能" Type="text" Nullable="false" />
+          <Property Name="知覚" Type="text" Nullable="false" />
+          <Property Name="反応" Type="text" Nullable="false" />
+          <Property Name="言語" Type="text" Nullable="false" />
+          <Property Name="生息地" Type="text" Nullable="false" />
+          <Property Name="知名度" Type="int" Nullable="false" />
+          <Property Name="弱点値" Type="int" Nullable="false" />
+          <Property Name="弱点" Type="text" Nullable="false" />
+          <Property Name="先制値" Type="int" Nullable="false" />
+          <Property Name="移動速度" Type="text" Nullable="false" />
+          <Property Name="生命抵抗力" Type="int" Nullable="false" />
+          <Property Name="精神抵抗力" Type="int" Nullable="false" />
+          <Property Name="穢れ点" Type="int" Nullable="false" />
+          <Property Name="部位数" Type="int" Nullable="false" />
+          <Property Name="部位数内訳" Type="text" Nullable="false" />
+          <Property Name="コア部位" Type="text" Nullable="false" />
+          <Property Name="特殊能力" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="戦利品" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="解説" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="魔物部位">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="魔物Id" Type="int" Nullable="false" />
+          <Property Name="No" Type="int" Nullable="false" />
+          <Property Name="コア部位" Type="bit" Nullable="false" />
+          <Property Name="部位名" Type="text" Nullable="false" />
+          <Property Name="攻撃方法" Type="text" Nullable="false" />
+          <Property Name="命中力" Type="int" Nullable="false" />
+          <Property Name="打撃点" Type="int" Nullable="false" />
+          <Property Name="回避力" Type="int" Nullable="false" />
+          <Property Name="防護点" Type="int" Nullable="false" />
+          <Property Name="HP" Type="int" Nullable="false" />
+          <Property Name="MP" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_魔物部位_魔物">
+          <End Role="魔物" Type="Self.魔物" Multiplicity="1" />
+          <End Role="魔物部位" Type="Self.魔物部位" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="魔物">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="魔物部位">
+              <PropertyRef Name="魔物Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DatabaseModelStoreContainer">
+          <EntitySet Name="魔物" EntityType="Self.魔物" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="魔物部位" EntityType="Self.魔物部位" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_魔物部位_魔物" Association="Self.FK_魔物部位_魔物">
+            <End Role="魔物" EntitySet="魔物" />
+            <End Role="魔物部位" EntitySet="魔物部位" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="魔物" EntityType="DatabaseModel.魔物" />
+          <EntitySet Name="魔物部位" EntityType="DatabaseModel.魔物部位" />
+          <AssociationSet Name="FK_魔物部位_魔物" Association="DatabaseModel.FK_魔物部位_魔物">
+            <End Role="魔物" EntitySet="魔物" />
+            <End Role="魔物部位" EntitySet="魔物部位" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="魔物">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="オリジナル" Type="Boolean" Nullable="false" />
+          <Property Name="SW25" Type="Boolean" Nullable="false" />
+          <Property Name="SW20" Type="Boolean" Nullable="false" />
+          <Property Name="出典" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="分類" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="タグ" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LV" Type="Int32" Nullable="false" />
+          <Property Name="ネームド" Type="Boolean" Nullable="false" />
+          <Property Name="名前" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="名称" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="知能" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="知覚" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="反応" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="言語" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="生息地" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="知名度" Type="Int32" Nullable="false" />
+          <Property Name="弱点値" Type="Int32" Nullable="false" />
+          <Property Name="弱点" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="先制値" Type="Int32" Nullable="false" />
+          <Property Name="移動速度" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="生命抵抗力" Type="Int32" Nullable="false" />
+          <Property Name="精神抵抗力" Type="Int32" Nullable="false" />
+          <Property Name="穢れ点" Type="Int32" Nullable="false" />
+          <Property Name="部位数" Type="Int32" Nullable="false" />
+          <Property Name="部位数内訳" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="コア部位" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="特殊能力" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="戦利品" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="解説" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="魔物部位" Relationship="DatabaseModel.FK_魔物部位_魔物" FromRole="魔物" ToRole="魔物部位" />
+        </EntityType>
+        <EntityType Name="魔物部位">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="魔物Id" Type="Int32" Nullable="false" />
+          <Property Name="No" Type="Int32" Nullable="false" />
+          <Property Name="コア部位" Type="Boolean" Nullable="false" />
+          <Property Name="部位名" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="攻撃方法" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="命中力" Type="Int32" Nullable="false" />
+          <Property Name="打撃点" Type="Int32" Nullable="false" />
+          <Property Name="回避力" Type="Int32" Nullable="false" />
+          <Property Name="防護点" Type="Int32" Nullable="false" />
+          <Property Name="HP" Type="Int32" Nullable="false" />
+          <Property Name="MP" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="魔物" Relationship="DatabaseModel.FK_魔物部位_魔物" FromRole="魔物部位" ToRole="魔物" />
+        </EntityType>
+        <Association Name="FK_魔物部位_魔物">
+          <End Type="DatabaseModel.魔物" Role="魔物" Multiplicity="1" />
+          <End Type="DatabaseModel.魔物部位" Role="魔物部位" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="魔物">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="魔物部位">
+              <PropertyRef Name="魔物Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="DatabaseEntities">
+          <EntitySetMapping Name="魔物">
+            <EntityTypeMapping TypeName="DatabaseModel.魔物">
+              <MappingFragment StoreEntitySet="魔物">
+                <ScalarProperty Name="解説" ColumnName="解説" />
+                <ScalarProperty Name="戦利品" ColumnName="戦利品" />
+                <ScalarProperty Name="特殊能力" ColumnName="特殊能力" />
+                <ScalarProperty Name="コア部位" ColumnName="コア部位" />
+                <ScalarProperty Name="部位数内訳" ColumnName="部位数内訳" />
+                <ScalarProperty Name="部位数" ColumnName="部位数" />
+                <ScalarProperty Name="穢れ点" ColumnName="穢れ点" />
+                <ScalarProperty Name="精神抵抗力" ColumnName="精神抵抗力" />
+                <ScalarProperty Name="生命抵抗力" ColumnName="生命抵抗力" />
+                <ScalarProperty Name="移動速度" ColumnName="移動速度" />
+                <ScalarProperty Name="先制値" ColumnName="先制値" />
+                <ScalarProperty Name="弱点" ColumnName="弱点" />
+                <ScalarProperty Name="弱点値" ColumnName="弱点値" />
+                <ScalarProperty Name="知名度" ColumnName="知名度" />
+                <ScalarProperty Name="生息地" ColumnName="生息地" />
+                <ScalarProperty Name="言語" ColumnName="言語" />
+                <ScalarProperty Name="反応" ColumnName="反応" />
+                <ScalarProperty Name="知覚" ColumnName="知覚" />
+                <ScalarProperty Name="知能" ColumnName="知能" />
+                <ScalarProperty Name="名称" ColumnName="名称" />
+                <ScalarProperty Name="名前" ColumnName="名前" />
+                <ScalarProperty Name="ネームド" ColumnName="ネームド" />
+                <ScalarProperty Name="LV" ColumnName="LV" />
+                <ScalarProperty Name="タグ" ColumnName="タグ" />
+                <ScalarProperty Name="分類" ColumnName="分類" />
+                <ScalarProperty Name="出典" ColumnName="出典" />
+                <ScalarProperty Name="SW20" ColumnName="SW20" />
+                <ScalarProperty Name="SW25" ColumnName="SW25" />
+                <ScalarProperty Name="オリジナル" ColumnName="オリジナル" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="魔物部位">
+            <EntityTypeMapping TypeName="DatabaseModel.魔物部位">
+              <MappingFragment StoreEntitySet="魔物部位">
+                <ScalarProperty Name="MP" ColumnName="MP" />
+                <ScalarProperty Name="HP" ColumnName="HP" />
+                <ScalarProperty Name="防護点" ColumnName="防護点" />
+                <ScalarProperty Name="回避力" ColumnName="回避力" />
+                <ScalarProperty Name="打撃点" ColumnName="打撃点" />
+                <ScalarProperty Name="命中力" ColumnName="命中力" />
+                <ScalarProperty Name="攻撃方法" ColumnName="攻撃方法" />
+                <ScalarProperty Name="部位名" ColumnName="部位名" />
+                <ScalarProperty Name="コア部位" ColumnName="コア部位" />
+                <ScalarProperty Name="No" ColumnName="No" />
+                <ScalarProperty Name="魔物Id" ColumnName="魔物Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="なし" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

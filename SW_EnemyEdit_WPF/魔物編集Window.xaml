@@ -1,0 +1,175 @@
+﻿<Window x:Class="SW_EnemyEdit_WPF.魔物編集Window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SW_EnemyEdit_WPF"
+        mc:Ignorable="d"
+        Title="魔物編集" Height="700" Width="1000" Closing="Window_Closing" KeyDown="Window_KeyDown" Loaded="Window_Loaded">
+    <Grid
+        Margin="5 5 5 5"
+        x:Name="MainGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="500"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid
+            Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="340"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Canvas
+                x:Name="MainCanvas"
+                Grid.Row="0">
+                <Label Content="出典" Canvas.Left="301" Canvas.Top="4"/>
+                <Label Content="タグ" Canvas.Left="10" Canvas.Top="30"/>
+                <Label Content="レベル" Canvas.Left="10" Canvas.Top="58"/>
+                <Label Content="分類" Canvas.Left="94" Canvas.Top="58" />
+                <Label Content="名前" Canvas.Left="84" Canvas.Top="90"/>
+                <Label Content="名称" Canvas.Left="84" Canvas.Top="117"/>
+                <Label Content="知能" Canvas.Left="8" Canvas.Top="147"/>
+                <Label Content="知覚" Canvas.Left="132" Canvas.Top="147"/>
+                <Label Content="反応" Canvas.Left="252" Canvas.Top="147"/>
+                <Label Content="言語" Canvas.Left="8" Canvas.Top="175"/>
+                <Label Content="生息地" Canvas.Left="252" Canvas.Top="175"/>
+                <Label Content="知名度／弱点値" Canvas.Left="8" Canvas.Top="210"/>
+                <Label Content="／" Canvas.Left="158" Canvas.Top="209"/>
+                <Label Content="弱点" Canvas.Left="238" Canvas.Top="210"/>
+                <Label Content="先制値" Canvas.Left="8" Canvas.Top="241"/>
+                <Label Content="移動速度" Canvas.Left="104" Canvas.Top="241"/>
+                <Label Content="生命抵抗力" Canvas.Left="8" Canvas.Top="270"/>
+                <Label Content="精神抵抗力" Canvas.Left="168" Canvas.Top="270"/>
+                <Label Content="穢れ点" Canvas.Left="375" Canvas.Top="147"/>
+                <Label Content="部位数" Canvas.Top="314"/>
+                <Label Content="内訳" Canvas.Left="88" Canvas.Top="311"/>
+                <Label Content="コア部位" Canvas.Left="303" Canvas.Top="311"/>
+                <CheckBox IsChecked="{Binding オリジナル}" Content="オリジナル" Canvas.Left="9" Canvas.Top="10"/>
+                <CheckBox IsChecked="{Binding SW25}" Content="SW2.5" Canvas.Left="96" Canvas.Top="10"/>
+                <CheckBox IsChecked="{Binding SW20}" Content="SW2.0" Canvas.Left="154" Canvas.Top="10"/>
+                <TextBox Text="{Binding 出典, Mode=TwoWay}" Height="23" Canvas.Left="340" Canvas.Top="4" Width="150"/>
+                <TextBox Text="{Binding タグ, Mode=TwoWay}" Height="23" Canvas.Left="49" Canvas.Top="30" Width="238"/>
+                <TextBox Text="{Binding LV,   Mode=TwoWay}" Height="23" Canvas.Left="49" Canvas.Top="58" Width="40"/>
+                <TextBox Text="{Binding 分類, Mode=TwoWay}" Height="23" Canvas.Left="133" Canvas.Top="58" Width="80"/>
+                <CheckBox IsChecked="{Binding ネームド}" Content="ネームド" Canvas.Left="10" Canvas.Top="96" Unchecked="CheckBox_Unchecked" Checked="CheckBox_Checked"/>
+                <TextBox Text="{Binding 名前, Mode=TwoWay}" x:Name="TextBox名前" IsEnabled="False" Height="23" Canvas.Left="123" Canvas.Top="93" Width="365"/>
+                <TextBox Text="{Binding 名称, Mode=TwoWay}" Height="23" Canvas.Left="123" Canvas.Top="120" Width="365"/>
+                <TextBox Text="{Binding 知能, Mode=TwoWay}" Height="23" Canvas.Left="47" Canvas.Top="148" Width="80"/>
+                <TextBox Text="{Binding 知覚, Mode=TwoWay}" Height="23" Canvas.Left="166" Canvas.Top="148" Width="80"/>
+                <TextBox Text="{Binding 反応, Mode=TwoWay}" Height="23" Canvas.Left="290" Canvas.Top="147" Width="80"/>
+                <TextBox Text="{Binding 穢れ点, Mode=TwoWay}" Height="23" Canvas.Left="425" Canvas.Top="148" Width="40"/>
+
+                <TextBox Text="{Binding 言語, Mode=TwoWay}" Height="23" Canvas.Left="47" Canvas.Top="178" Width="200"/>
+                <TextBox Text="{Binding 生息地, Mode=TwoWay}" Height="23" Canvas.Left="303" Canvas.Top="175" Width="185"/>
+                <TextBox Text="{Binding 知名度, Mode=TwoWay}" Height="23" Canvas.Left="118" Canvas.Top="210" Width="40"/>
+                <TextBox Text="{Binding 弱点値, Mode=TwoWay}" Height="23" Canvas.Left="178" Canvas.Top="210" Width="40"/>
+                <TextBox Text="{Binding 弱点,   Mode=TwoWay}" Height="23" Canvas.Left="277" Canvas.Top="210" Width="180"/>
+                <TextBox Text="{Binding 先制値, Mode=TwoWay}" Height="23" Canvas.Left="59" Canvas.Top="240" Width="40"/>
+                <TextBox Text="{Binding 移動速度, Mode=TwoWay}" Height="23" Canvas.Left="168" Canvas.Top="240" Width="120"/>
+                <TextBox Text="{Binding 生命抵抗力, Mode=TwoWay}" Height="23" Canvas.Left="78" Canvas.Top="270" Width="40"/>
+                <Label Content="{Binding 生命抵抗力固定値}" Canvas.Left="118" Canvas.Top="270" Width="40"/>
+                <TextBox Text="{Binding 精神抵抗力, Mode=TwoWay}" Height="23" Canvas.Left="238" Canvas.Top="270" Width="40"/>
+                <Label Content="{Binding 精神抵抗力固定値}" Canvas.Left="278" Canvas.Top="270" Width="40"/>
+                <Label Content="{Binding 部位数, Mode=TwoWay}" x:Name="Label部位数" Focusable="False" Height="23" Canvas.Left="46" Canvas.Top="317" Width="40"/>
+                <TextBox Text="{Binding 部位数内訳, Mode=TwoWay}" Height="23" Canvas.Left="127" Canvas.Top="314" Width="171"/>
+                <TextBox Text="{Binding コア部位, Mode=TwoWay}" x:Name="TextBoxコア部位" Height="23" Canvas.Left="360" Canvas.Top="314" Width="130"/>
+
+            </Canvas>
+
+            <Grid
+                Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="1" Content="戦利品"/>
+                <Label Grid.Row="2" Content="解説"/>
+                <DataGrid Grid.Row="0"  x:Name="DataGrid部位" ItemsSource="{Binding 魔物部位List, Mode=TwoWay}" SelectionMode="Single" CanUserSortColumns="False" CanUserReorderColumns="False" CurrentCellChanged="DataGrid部位_CurrentCellChanged" VerticalScrollBarVisibility="Visible"/>
+                <TextBox Grid.Row="1" 
+                         x:Name="TextBox戦利品"
+                         Text="{Binding 戦利品, Mode=TwoWay}" 
+                         Margin="50 5 5 5" 
+                         TextWrapping="WrapWithOverflow" 
+                         VerticalScrollBarVisibility="Visible"
+                         AcceptsReturn="True"/>
+                <TextBox Grid.Row="2" 
+                         x:Name="TextBox解説"
+                         Text="{Binding 解説, Mode=TwoWay}" 
+                         Margin="50 5 5 5" 
+                         TextWrapping="WrapWithOverflow" 
+                         VerticalScrollBarVisibility="Visible" 
+                         AcceptsReturn="True"/>
+            </Grid>
+        </Grid>
+        <Grid
+            x:Name="SubGrid"
+            Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition
+                    Height="180"/>
+                <RowDefinition/>
+                <RowDefinition
+                    Height="30"/>
+            </Grid.RowDefinitions>
+
+            <Grid x:Name="Grid補助たち" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="180"/>
+                </Grid.ColumnDefinitions>
+                <Label Name="特殊能力" Grid.Column="0" Content="特殊能力" VerticalAlignment="Bottom"/>
+                <Grid Grid.Column="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="50"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBox Grid.Column="0" Grid.Row="0" IsReadOnly="True" IsTabStop="False" VerticalAlignment="Center" Text="◯"/>
+                    <TextBox Grid.Column="0" Grid.Row="1" IsReadOnly="True" IsTabStop="False" VerticalAlignment="Center" Text="〆▶"/>
+                    <TextBox Grid.Column="0" Grid.Row="2" IsReadOnly="True" IsTabStop="False" VerticalAlignment="Center" Text="☆⏩"/>
+                    <TextBox Grid.Column="0" Grid.Row="3" IsReadOnly="True" IsTabStop="False" VerticalAlignment="Center" Text="☑💬"/>
+                    <TextBox Grid.Column="0" Grid.Row="4" IsReadOnly="True" IsTabStop="False" VerticalAlignment="Center" Text="△"/>
+                    <TextBox Grid.Column="0" Grid.Row="5" IsReadOnly="True" IsTabStop="False" VerticalAlignment="Center" Text="▽"/>
+                    <TextBox Grid.Column="0" Grid.Row="6" IsReadOnly="True" IsTabStop="False" VerticalAlignment="Center" Text="▼"/>
+                    <Label Grid.Column="1" Grid.Row="0" Content="常動型"/>
+                    <Label Grid.Column="1" Grid.Row="1" Content="主動作型"/>
+                    <Label Grid.Column="1" Grid.Row="2" Content="補助動作型"/>
+                    <Label Grid.Column="1" Grid.Row="3" Content="宣言型"/>
+                    <Label Grid.Column="1" Grid.Row="4" Content="戦闘準備型"/>
+                    <Label Grid.Column="1" Grid.Row="5" Content="条件型"/>
+                    <Label Grid.Column="1" Grid.Row="6" Content="条件選択型"/>
+                    <Button Margin="3 3 3 3 " x:Name="Button常動型"     Grid.Column="2" Grid.Row="0" Content="" IsTabStop="False" Click="Button常動型_Click"/>
+                    <Button Margin="3 3 3 3 " x:Name="Button主動作型"   Grid.Column="2" Grid.Row="1" Content="" IsTabStop="False" Click="Button主動作型_Click"/>
+                    <Button Margin="3 3 3 3 " x:Name="Button補助動作型" Grid.Column="2" Grid.Row="2" Content="" IsTabStop="False" Click="Button補助動作型_Click"/>
+                    <Button Margin="3 3 3 3 " x:Name="Button宣言型"     Grid.Column="2" Grid.Row="3" Content="" IsTabStop="False" Click="Button宣言型_Click"/>
+                    <Button Margin="3 3 3 3 " x:Name="Button戦闘準備型" Grid.Column="2" Grid.Row="4" Content="" IsTabStop="False" Click="Button戦闘準備型_Click"/>
+                    <Button Margin="3 3 3 3 " x:Name="Button条件型"     Grid.Column="2" Grid.Row="5" Content="" IsTabStop="False" Click="Button条件型_Click"/>
+                    <Button Margin="3 3 3 3 " x:Name="Button条件選択型" Grid.Column="2" Grid.Row="6" Content="" IsTabStop="False" Click="Button条件選択型_Click"/>
+                </Grid>
+            </Grid>
+            <TextBox 
+                x:Name="TextBox特殊能力"
+                AcceptsReturn="True"
+                Text="{Binding 特殊能力, Mode=TwoWay}"
+                TextWrapping="WrapWithOverflow"
+                Grid.Row="1" 
+                Margin="5 5 5 5"/>
+            <Button
+                x:Name="Button_OK"
+                Content="OK(F1)"
+                Click="Button_Click"
+                Grid.Row="2" />
+        </Grid>
+    </Grid>
+</Window>
