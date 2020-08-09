@@ -199,7 +199,7 @@ namespace SW_EnemyEdit_WPF
 			魔物 clone = m.Clone();
 			clone.LV += 1;
 			clone.名称 += "・レブナント";
-			clone.出典 += "Ⅰ,p456、" + clone.出典;
+			clone.出典 = "Ⅰ,p456、" + clone.出典;
 			clone.穢れ点 = 5;
 			clone.知能 = "低い";
 			clone.知覚 = "魔法";
@@ -248,7 +248,7 @@ namespace SW_EnemyEdit_WPF
 			魔物 clone = m.Clone();
 			clone.LV += 1;
 			clone.名称 += "・ハイレブナント";
-			clone.出典 += "Ⅱ,p413、" + clone.出典;
+			clone.出典 = "Ⅱ,p413、" + clone.出典;
 			clone.穢れ点 = 5;
 			clone.知能 = "人間並み";
 			clone.知覚 = "魔法";

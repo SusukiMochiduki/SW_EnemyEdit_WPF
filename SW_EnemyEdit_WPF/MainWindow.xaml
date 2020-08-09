@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SW_EnemyEdit_WPF"
         xmlns:sys="clr-namespace:System;assembly=mscorlib" 
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1280" Loaded="Window_Loaded" KeyDown="Window_KeyDown">
+        Title="魔物追加／編集" Height="720" Width="1280" Loaded="Window_Loaded" KeyDown="Window_KeyDown">
     <Window.Resources>
         <ObjectDataProvider x:Key="表示並び順分類EnumKey" MethodName="GetValues" 
                         ObjectType="{x:Type sys:Enum}">

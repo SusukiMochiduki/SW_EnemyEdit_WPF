@@ -211,6 +211,7 @@
 
                 <Button Content="出力" Canvas.Left="10" Canvas.Top="37" Width="75" Click="ButtonOutput_Click"/>
                 <CheckBox x:Name="checkBoxOutputSW25" Content="SW2.5用出力" IsChecked="True" Canvas.Left="135" Canvas.Top="14"/>
+                <Label Content="[F1]で部位編集" Canvas.Left="315" Canvas.Top="6" />
             </Canvas>
             <TextBox
                 x:Name="TextBoxOutput"
