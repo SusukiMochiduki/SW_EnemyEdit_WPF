@@ -21,6 +21,7 @@ namespace SW_EnemyEdit_WPF
 		魔法生物,
 		魔動機,
 		幻獣,
+		妖精,
 		魔神,
 		人族,
 		神族

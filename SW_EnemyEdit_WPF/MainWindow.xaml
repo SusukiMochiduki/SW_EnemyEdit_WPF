@@ -42,47 +42,53 @@
             </Grid.ColumnDefinitions>
             <Canvas
                 Grid.Column="0">
+                <ComboBox 
+                    x:Name="ComboBox新規作成魔物分類"
+                    Canvas.Left="10" 
+                    Canvas.Top="10" 
+                    Width="120"
+                    ItemsSource="{Binding Source={StaticResource 魔物分類EnumKey}}"
+                    SelectedItem="{x:Static local:魔物分類.なし}"/>
                 <Button
-                Margin="10 10"
                 Width="100"
                 Content="新規作成（F1）"
-                Click="Button作成_Click"
+                Click="Button作成_Click" Canvas.Left="135" Canvas.Top="12"
                 />
                 <Button
-                Canvas.Left="115"
+                Canvas.Left="135"
                 Width="100"
                 Content="コピーして新規作成"
-                Click="Buttonコピー作成_Click" Canvas.Top="10"
+                Click="Buttonコピー作成_Click" Canvas.Top="37"
                 />
                 <Button
-                Canvas.Left="220"
+                Canvas.Left="240"
                 Width="100"
                 Content="編集"
-                Click="Button編集_Click" Canvas.Top="10"
+                Click="Button編集_Click" Canvas.Top="12"
                 />
                 <Button
-                Canvas.Left="325"
+                Canvas.Left="345"
                 Width="100"
                 Content="行削除"
-                Click="Button削除_Click" Canvas.Top="10"
+                Click="Button削除_Click" Canvas.Top="12"
                 />
                 <Button
                 x:Name="Buttonレブナント作成"
                 Width="100"
                 Content="レブナント作成"
-                Canvas.Left="10" Canvas.Top="35" Click="Buttonレブナント作成_Click"
+                Canvas.Left="10" Canvas.Top="70" Click="Buttonレブナント作成_Click"
                 />
                 <Button
                 x:Name="Buttonハイレブナント作成"
                 Width="100"
                 Content="ハイレブナント作成"
-                Canvas.Left="115" Canvas.Top="35" Click="Buttonハイレブナント作成_Click"
+                Canvas.Left="115" Canvas.Top="70" Click="Buttonハイレブナント作成_Click"
                 />
                 <Button
                 x:Name="Buttonマギレプリカ作成"
                 Width="100"
                 Content="マギレプリカ作成"
-                Canvas.Left="220" Canvas.Top="35" Click="Buttonマギレプリカ作成_Click"
+                Canvas.Left="220" Canvas.Top="70" Click="Buttonマギレプリカ作成_Click"
                 />
             </Canvas>
             <Canvas

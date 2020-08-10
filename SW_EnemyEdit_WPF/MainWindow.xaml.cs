@@ -1,4 +1,5 @@
-﻿using SW_EnemyEdit_WPF.ViewModels;
+﻿using SW_EnemyEdit_WPF.Models;
+using SW_EnemyEdit_WPF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -135,14 +136,52 @@ namespace SW_EnemyEdit_WPF
 		}
 		private void Button作成_Click(object sender, RoutedEventArgs e)
 		{
-			魔物編集Window window = new 魔物編集Window();
-			window.ShowDialog();
-			if (window.IsOK)
+			魔物分類 新規作成魔物分類 = (魔物分類)(ComboBox新規作成魔物分類.SelectedItem);
+			if (新規作成魔物分類 == 魔物分類.なし)
 			{
-				window.ViewModel.魔物.魔物部位 = window.ViewModel.魔物部位List;
-				this.ViewModel.魔物List.Add(window.ViewModel.魔物);
-				//Reload();
+				魔物編集Window window = new 魔物編集Window();
+				window.ShowDialog();
+				if (window.IsOK)
+				{
+					window.ViewModel.魔物.魔物部位 = window.ViewModel.魔物部位List;
+					this.ViewModel.魔物List.Add(window.ViewModel.魔物);
+					//Reload();
+				}
 			}
+			else
+			{
+				魔物 m = new 魔物();
+				m.魔物部位 = new List<魔物部位>();
+				m.分類 = 新規作成魔物分類.ToString();
+				switch (新規作成魔物分類)
+				{
+					case 魔物分類.アンデッド:
+						m.穢れ点 = 5;
+						m.特殊能力 = "「○毒無効」「○病気無効」「○精神効果（弱）無効」";
+						break;
+					case 魔物分類.魔動機:
+						m.特殊能力 = "「○毒無効」「○病気無効」「○精神効果無効」「○感知される」";
+						break;
+					case 魔物分類.魔法生物:
+						m.特殊能力 = "「○毒無効」「○病気無効」「○精神効果無効」「○感知される」";
+						break;
+					case 魔物分類.妖精:
+						m.特殊能力 = "「○正体露見＝フェアリーテイマー技能」「○ルーンフォークに対して透明」";
+						break;
+					default:
+						break;
+				}
+
+				魔物編集Window window = new 魔物編集Window(m, true);
+				window.ShowDialog();
+				if (window.IsOK)
+				{
+					window.ViewModel.魔物.魔物部位 = window.ViewModel.魔物部位List;
+					this.ViewModel.魔物List.Add(window.ViewModel.魔物);
+					//Reload();
+				}
+			}
+			
 		}
 		private void Buttonコピー作成_Click(object sender, RoutedEventArgs e)
 		{
