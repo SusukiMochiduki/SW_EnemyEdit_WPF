@@ -17,11 +17,11 @@
             <Button
                 Grid.Row="0"
                 Margin="5 5 5 5"
-                Content="編集" Click="Button_Click編集"/>
+                Content="データ編集" Click="Button_Click編集"/>
             <Button
                 Grid.Row="1"
                 Margin="5 5 5 5"
-                Content="作成" Click="Button_Click作成"/>
+                Content="データ出力" Click="Button_Click作成"/>
         </Grid>
     </Grid>
 </Window>
