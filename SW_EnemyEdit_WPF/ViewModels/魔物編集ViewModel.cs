@@ -463,33 +463,13 @@ namespace SW_EnemyEdit_WPF.ViewModels
 		public 魔物編集ViewModel()
 		{
 			this.魔物 = new 魔物();
-			魔物初期化(this.魔物);
+			this.魔物.初期化();
 			this.魔物部位List = new List<魔物部位>();
 		}
 		public 魔物編集ViewModel(魔物 monster, IEnumerable<魔物部位> 部位)
 		{
 			this.魔物 = monster;
 			this.魔物部位List = 部位.ToList();
-		}
-
-		public void 魔物初期化(魔物 monster)
-		{
-			monster.タグ = "";
-			monster.コア部位 = "";
-			monster.分類 = "";
-			monster.反応 = "";
-			monster.名前 = "";
-			monster.名称 = "";
-			monster.弱点 = "";
-			monster.戦利品 = "";
-			monster.特殊能力 = "";
-			monster.生息地 = "";
-			monster.知能 = "";
-			monster.知覚 = "";
-			monster.解説 = "";
-			monster.言語 = "";
-			monster.部位数内訳 = "";
-			monster.移動速度 = "";
 		}
 	}
 }

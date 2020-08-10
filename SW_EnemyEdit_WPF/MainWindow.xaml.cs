@@ -151,6 +151,7 @@ namespace SW_EnemyEdit_WPF
 			else
 			{
 				魔物 m = new 魔物();
+				m.初期化();
 				m.魔物部位 = new List<魔物部位>();
 				m.分類 = 新規作成魔物分類.ToString();
 				switch (新規作成魔物分類)
