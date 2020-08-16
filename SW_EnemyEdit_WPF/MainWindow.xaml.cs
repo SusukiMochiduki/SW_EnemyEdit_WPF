@@ -66,7 +66,7 @@ namespace SW_EnemyEdit_WPF
 				魔物分類 Filter魔物分類 = (魔物分類)(ComboBox魔物分類.SelectedItem);
 				if(Filter魔物分類 != 魔物分類.なし)
 				{
-					data = data.Where(x => x.分類 == Filter魔物分類.ToString());
+					data = data.Where(x => x.分類.Contains(Filter魔物分類.ToString()));
 				}
 
 				data = data.OrderBy(x => x.分類);
@@ -88,15 +88,22 @@ namespace SW_EnemyEdit_WPF
 					v.魔物部位.OrderBy(x => x.No).ToList();
 				}
 			}
-			MainDataGrid.Columns.Single(x => x.Header.ToString() == nameof(魔物.剣のかけら振分)).Visibility = Visibility.Hidden;
-			MainDataGrid.Columns.Single(x => x.Header.ToString() == nameof(魔物.剣のかけら個数)).Visibility = Visibility.Hidden;
-			MainDataGrid.Columns.Single(x => x.Header.ToString() == nameof(魔物.強さ変動)).Visibility = Visibility.Hidden;
-			MainDataGrid.Columns.Single(x => x.Header.ToString() == nameof(魔物.弱点値上昇)).Visibility = Visibility.Hidden;
-			MainDataGrid.Columns.Single(x => x.Header.ToString() == nameof(魔物.先制値上昇)).Visibility = Visibility.Hidden;
-			MainDataGrid.Columns.Single(x => x.Header.ToString() == nameof(魔物.魔物部位)).Visibility = Visibility.Hidden;
-			MainDataGrid.Columns.Single(x => x.Header.ToString() == nameof(魔物.戦利品)).Visibility = Visibility.Hidden;
-			MainDataGrid.Columns.Single(x => x.Header.ToString() == nameof(魔物.特殊能力)).Visibility = Visibility.Hidden;
-			MainDataGrid.Columns.Single(x => x.Header.ToString() == nameof(魔物.解説)).Visibility = Visibility.Hidden;
+
+			string[] hiddenHeaders = { 
+				nameof(魔物.剣のかけら振分),
+				nameof(魔物.剣のかけら個数),
+				nameof(魔物.強さ変動),
+				nameof(魔物.弱点値上昇),
+				nameof(魔物.先制値上昇),
+				nameof(魔物.魔物部位),
+				nameof(魔物.戦利品),
+				nameof(魔物.特殊能力),
+				nameof(魔物.解説),
+			};
+			foreach(var v in hiddenHeaders)
+			{
+				MainDataGrid.Columns.Single(x => x.Header.ToString() == v).Visibility = Visibility.Hidden;
+			}
 
 			MainDataGrid.Columns.Single(x => x.Header.ToString() == nameof(魔物.言語)).MaxWidth = 100;
 		}

@@ -316,7 +316,7 @@ namespace SW_EnemyEdit_WPF
 					string 特殊能力追加 = "";
 
 					string 正式名称 = data.ネームド ? $"{data.名前}（{data.名称}）" : data.名称;
-					string strBuild = $@"LV{data.LV}　{正式名称}
+					string strBuild = $@"LV{data.LV}　{正式名称}　({data.出典})
 知能：{data.知能}　知覚：{data.知覚}　言語：{(string.IsNullOrWhiteSpace(data.言語) ? なし : data.言語)}
 生息地：{data.生息地}　反応：{data.反応}
 知名度/弱点値：{data.知名度}/{data.弱点値}　先制値：{data.先制値}　移動速度：{data.移動速度}
@@ -425,7 +425,7 @@ namespace SW_EnemyEdit_WPF
 						strBuild += $"\r\n\r\n【解説】\r\n{data.解説}";
 					}
 					resultList.Add(strBuild);
-					result += string.Join("\r\n\r\n", resultList);
+					result += string.Join("\r\n\r\n\r\n", resultList);
 				}
 			}
 
