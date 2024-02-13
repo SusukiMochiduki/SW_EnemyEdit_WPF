@@ -21,8 +21,7 @@ namespace SW_EnemyEdit_WPF
 			set
 			{
 				_魔物List = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("全魔物"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("全魔物"));
 			}
 		}
 		private ObservableCollection<魔物> _ピックアップ魔物;
@@ -35,8 +34,7 @@ namespace SW_EnemyEdit_WPF
 			set
 			{
 				_ピックアップ魔物 = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("ピックアップ魔物"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ピックアップ魔物"));
 			}
 		}
 

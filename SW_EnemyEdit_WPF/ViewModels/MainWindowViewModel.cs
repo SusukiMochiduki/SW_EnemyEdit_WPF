@@ -20,8 +20,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				_魔物List = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("魔物List"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("魔物List"));
 			}
 		}
 

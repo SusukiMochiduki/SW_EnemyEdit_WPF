@@ -72,24 +72,21 @@ namespace SW_EnemyEdit_WPF
 			{
 				c.GotFocus += (sender, e) => this.Dispatcher.InvokeAsync(() => { Task.Delay(0); (sender as TextBox).SelectAll(); });
 			}
-			if (isReadOnly)
-			{
-				this.MainGrid.IsEnabled = false;
-			}
+			this.MainGrid.IsEnabled = !isReadOnly;
 		}
 		public 魔物編集Window(魔物 m, bool is新規作成 = false)
 		{
 			InitializeComponent();
 			this.Entities = new DatabaseEntities();
 
-			var 部位 = m.魔物部位
-				.OrderBy(x => x.No)
-				.ToList();
-
 			if (is新規作成)
 			{
 				m.魔物部位 = new List<魔物部位>();
 			}
+			var 部位 = m.魔物部位
+				.OrderBy(x => x.No)
+				.ToList();
+
 			this.ViewModel = new 魔物編集ViewModel(m, 部位);
 			this.DataContext = this.ViewModel;
 
@@ -168,14 +165,9 @@ namespace SW_EnemyEdit_WPF
 						{
 							v.魔物Id = this.ViewModel.魔物.Id;
 							v.No = i;
-							if (v.部位名 == null)
-							{
-								v.部位名 = "";
-							}
-							if (v.攻撃方法 == null)
-							{
-								v.攻撃方法 = "";
-							}
+							if (v.部位名 == null) v.部位名 = "";
+							if (v.攻撃方法 == null) v.攻撃方法 = "";
+
 							i++;
 						}
 						this.Entities.魔物部位.AddRange(this.ViewModel.魔物部位List);
@@ -210,14 +202,8 @@ namespace SW_EnemyEdit_WPF
 							//魔物Idと番号をふる
 							v.魔物Id = this.ViewModel.魔物.Id;
 							v.No = i;
-							if(v.部位名==null)
-							{
-								v.部位名 = "";
-							}
-							if (v.攻撃方法 == null)
-							{
-								v.攻撃方法 = "";
-							}
+							if( v.部位名 == null ) v.部位名 = "";
+							if( v.攻撃方法 == null ) v.攻撃方法 = "";
 							i++;
 							if (v.Id == 0)
 							{
@@ -281,39 +267,46 @@ namespace SW_EnemyEdit_WPF
 		{
 			if (Isローカルデータ編集)
 			{
-
-				DataGrid部位.Columns.Single(x => x.Header.ToString() == nameof(魔物部位.HP)).IsReadOnly = true;
-				DataGrid部位.Columns.Single(x => x.Header.ToString() == nameof(魔物部位.MP)).IsReadOnly = true;
-				DataGrid部位.Columns.Single(x => x.Header.ToString() == nameof(魔物部位.命中力)).IsReadOnly = true;
-				DataGrid部位.Columns.Single(x => x.Header.ToString() == nameof(魔物部位.回避力)).IsReadOnly = true;
-				DataGrid部位.Columns.Single(x => x.Header.ToString() == nameof(魔物部位.打撃点)).IsReadOnly = true;
-				DataGrid部位.Columns.Single(x => x.Header.ToString() == nameof(魔物部位.攻撃方法)).IsReadOnly = true;
-				DataGrid部位.Columns.Single(x => x.Header.ToString() == nameof(魔物部位.部位名)).IsReadOnly = true;
-				DataGrid部位.Columns.Single(x => x.Header.ToString() == nameof(魔物部位.防護点)).IsReadOnly = true;
-				DataGrid部位.Columns.Single(x => x.Header.ToString() == nameof(魔物部位.コア部位)).IsReadOnly = true;
+				var targets = new string[]{
+					nameof(魔物部位.HP),
+					nameof(魔物部位.MP),
+					nameof(魔物部位.命中力),
+					nameof(魔物部位.回避力),
+					nameof(魔物部位.打撃点),
+					nameof(魔物部位.攻撃方法),
+					nameof(魔物部位.部位名),
+					nameof(魔物部位.防護点),
+					nameof(魔物部位.コア部位),
+				};
+				foreach(var t in targets ) {
+					DataGrid部位.Columns.Single(x => x.Header.ToString() == t).IsReadOnly = true;
+				}
 			}
-			else
-			{
-				DataGrid部位.Columns.Single(x => x.Header.ToString() == nameof(魔物部位.剣のかけら個数)).Visibility = Visibility.Hidden;
-				DataGrid部位.Columns.Single(x => x.Header.ToString() == nameof(魔物部位.瞬間打撃点)).Visibility = Visibility.Hidden;
-				DataGrid部位.Columns.Single(x => x.Header.ToString() == nameof(魔物部位.瞬間打撃点回数)).Visibility = Visibility.Hidden;
-				DataGrid部位.Columns.Single(x => x.Header.ToString() == nameof(魔物部位.瞬間防護点)).Visibility = Visibility.Hidden;
-				DataGrid部位.Columns.Single(x => x.Header.ToString() == nameof(魔物部位.瞬間達成値)).Visibility = Visibility.Hidden;
-				DataGrid部位.Columns.Single(x => x.Header.ToString() == nameof(魔物部位.追加攻撃)).Visibility = Visibility.Hidden;
-				DataGrid部位.Columns.Single(x => x.Header.ToString() == nameof(魔物部位.呪いの波動)).Visibility = Visibility.Hidden;
-				DataGrid部位.Columns.Single(x => x.Header.ToString() == nameof(魔物部位.世界の汚染)).Visibility = Visibility.Hidden;
+			else {
+				var targets = new string[]{
+					nameof(魔物部位.剣のかけら個数),
+					nameof(魔物部位.瞬間打撃点),
+					nameof(魔物部位.瞬間打撃点回数),
+					nameof(魔物部位.瞬間防護点),
+					nameof(魔物部位.瞬間達成値),
+					nameof(魔物部位.追加攻撃),
+					nameof(魔物部位.呪いの波動),
+					nameof(魔物部位.世界の汚染),
+				};
+				foreach(var t in targets ) {
+					DataGrid部位.Columns.Single(x => x.Header.ToString() == t).Visibility = Visibility.Hidden;
+				}
 			}
-			DataGrid部位.Columns.Single(x => x.Header.ToString() == nameof(魔物部位.Id)).Visibility = Visibility.Hidden;
-			DataGrid部位.Columns.Single(x => x.Header.ToString() == nameof(魔物部位.魔物Id)).Visibility = Visibility.Hidden;
-			DataGrid部位.Columns.Single(x => x.Header.ToString() == nameof(魔物部位.No)).Visibility = Visibility.Hidden;
-			DataGrid部位.Columns.Single(x => x.Header.ToString() == nameof(魔物部位.魔物)).Visibility = Visibility.Hidden;
+			foreach( var t in new string[] { nameof(魔物部位.Id), nameof(魔物部位.魔物Id), nameof(魔物部位.No), nameof(魔物部位.魔物) } ) {
+				DataGrid部位.Columns.Single(x => x.Header.ToString() == t).Visibility = Visibility.Hidden;
+			}
 		}
 
 		private void Button常動型_Click(object sender, RoutedEventArgs e)
 		{
 			if (!string.IsNullOrWhiteSpace(TextBox特殊能力.Text))
 			{
-				TextBox特殊能力.Text += "\r\n";
+				TextBox特殊能力.Text += Environment.NewLine;
 			}
 			TextBox特殊能力.Text += "〇";
 			TextBox特殊能力.Focus();
@@ -324,7 +317,7 @@ namespace SW_EnemyEdit_WPF
 		{
 			if (!string.IsNullOrWhiteSpace(TextBox特殊能力.Text))
 			{
-				TextBox特殊能力.Text += "\r\n";
+				TextBox特殊能力.Text += Environment.NewLine;
 			}
 			TextBox特殊能力.Text += (ViewModel.SW25 ? "▶" : "〆");
 			TextBox特殊能力.Focus();
@@ -335,7 +328,7 @@ namespace SW_EnemyEdit_WPF
 		{
 			if (!string.IsNullOrWhiteSpace(TextBox特殊能力.Text))
 			{
-				TextBox特殊能力.Text += "\r\n";
+				TextBox特殊能力.Text += Environment.NewLine;
 			}
 			TextBox特殊能力.Text += (ViewModel.SW25 ? "⏩" : "☆");
 			TextBox特殊能力.Focus();
@@ -346,7 +339,7 @@ namespace SW_EnemyEdit_WPF
 		{
 			if (!string.IsNullOrWhiteSpace(TextBox特殊能力.Text))
 			{
-				TextBox特殊能力.Text += "\r\n";
+				TextBox特殊能力.Text += Environment.NewLine;
 			}
 			TextBox特殊能力.Text += (ViewModel.SW25 ? "💭" : "☑");
 			TextBox特殊能力.Focus();
@@ -357,7 +350,7 @@ namespace SW_EnemyEdit_WPF
 		{
 			if (!string.IsNullOrWhiteSpace(TextBox特殊能力.Text))
 			{
-				TextBox特殊能力.Text += "\r\n";
+				TextBox特殊能力.Text += Environment.NewLine;
 			}
 			TextBox特殊能力.Text += "▽";
 			TextBox特殊能力.Focus();
@@ -368,7 +361,7 @@ namespace SW_EnemyEdit_WPF
 		{
 			if (!string.IsNullOrWhiteSpace(TextBox特殊能力.Text))
 			{
-				TextBox特殊能力.Text += "\r\n";
+				TextBox特殊能力.Text += Environment.NewLine;
 			}
 			TextBox特殊能力.Text += "▼";
 			TextBox特殊能力.Focus();
@@ -379,7 +372,7 @@ namespace SW_EnemyEdit_WPF
 		{
 			if (!string.IsNullOrWhiteSpace(TextBox特殊能力.Text))
 			{
-				TextBox特殊能力.Text += "\r\n";
+				TextBox特殊能力.Text += Environment.NewLine;
 			}
 			TextBox特殊能力.Text += "△";
 			TextBox特殊能力.Focus();

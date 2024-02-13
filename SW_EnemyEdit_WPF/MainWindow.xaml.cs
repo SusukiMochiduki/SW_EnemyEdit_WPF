@@ -24,6 +24,68 @@ namespace SW_EnemyEdit_WPF
 	public partial class MainWindow : Window
 	{
 		public MainWindowViewModel ViewModel { get; set; }
+
+		private void Reload() {
+			using( var context = new DatabaseEntities() ) {
+				IQueryable<魔物> data = context.魔物;
+				if( CheckBoxFilterSW20.IsChecked.Value ) {
+					data = data.Where(x => x.SW20 == true);
+				}
+				if( CheckBoxFilterSW25.IsChecked.Value ) {
+					data = data.Where(x => x.SW25 == true);
+				}
+				魔物分類 Filter魔物分類 = (魔物分類)(ComboBox魔物分類.SelectedItem);
+				if( Filter魔物分類 != 魔物分類.なし ) {
+					data = data.Where(x => x.分類 == Filter魔物分類.ToString());
+				}
+
+				data = data.OrderBy(x => x.分類);
+				表示並び順分類 ソート順 = (表示並び順分類)(ComboBoxSort.SelectedItem);
+				switch( ソート順 ) {
+				case 表示並び順分類.ID:
+					data = data.OrderBy(x => x.Id);
+					break;
+				case 表示並び順分類.レベル:
+					data = data.OrderBy(x => x.LV);
+					break;
+				}
+
+				this.ViewModel.魔物List = new ObservableCollection<魔物>(data.ToList());
+				foreach( var v in data ) {
+					//魔物部位の読み込み
+					v.魔物部位.OrderBy(x => x.No).ToList();
+				}
+			}
+			var targets = new string[] {
+				nameof(魔物.剣のかけら振分),
+				nameof(魔物.剣のかけら個数),
+				nameof(魔物.強さ変動),
+				nameof(魔物.弱点値上昇),
+				nameof(魔物.先制値上昇),
+				nameof(魔物.魔物部位),
+				nameof(魔物.戦利品),
+				nameof(魔物.特殊能力),
+				nameof(魔物.解説),
+			};
+			foreach( var t in targets ) {
+				MainDataGrid.Columns.Single(x => x.Header.ToString() == t).Visibility = Visibility.Hidden;
+			}
+
+			MainDataGrid.Columns.Single(x => x.Header.ToString() == nameof(魔物.言語)).MaxWidth = 100;
+		}
+
+		/// <summary>
+		///		魔物を作成する場合のウィンドウの表示と共通処理</summary>
+		/// <param name="w">表示対象の魔物編集Window</param>
+		private void Show魔物作成用Window(魔物編集Window w) {
+			w.ShowDialog();
+			if( w.IsOK ) {
+				w.ViewModel.魔物.魔物部位 = w.ViewModel.魔物部位List;
+				this.ViewModel.魔物List.Add(w.ViewModel.魔物);
+				//Reload();
+			}
+		}
+
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -48,57 +110,6 @@ namespace SW_EnemyEdit_WPF
 					Reload();
 				}
 			}
-		}
-
-		private void Reload()
-		{
-			using (var context = new DatabaseEntities())
-			{
-				IQueryable<魔物> data = context.魔物;
-				if (CheckBoxFilterSW20.IsChecked.Value)
-				{
-					data = data.Where(x => x.SW20 == true);
-				}
-				if (CheckBoxFilterSW25.IsChecked.Value)
-				{
-					data = data.Where(x => x.SW25 == true);
-				}
-				魔物分類 Filter魔物分類 = (魔物分類)(ComboBox魔物分類.SelectedItem);
-				if(Filter魔物分類 != 魔物分類.なし)
-				{
-					data = data.Where(x => x.分類 == Filter魔物分類.ToString());
-				}
-
-				data = data.OrderBy(x => x.分類);
-				表示並び順分類 ソート順 = (表示並び順分類)(ComboBoxSort.SelectedItem);
-				switch (ソート順)
-				{
-					case 表示並び順分類.ID:
-						data = data.OrderBy(x => x.Id);
-						break;
-					case 表示並び順分類.レベル:
-						data = data.OrderBy(x => x.LV);
-						break;
-				}
-				
-				this.ViewModel.魔物List = new ObservableCollection<魔物>(data.ToList());
-				foreach (var v in data)
-				{
-					//魔物部位の読み込み
-					v.魔物部位.OrderBy(x => x.No).ToList();
-				}
-			}
-			MainDataGrid.Columns.Single(x => x.Header.ToString() == nameof(魔物.剣のかけら振分)).Visibility = Visibility.Hidden;
-			MainDataGrid.Columns.Single(x => x.Header.ToString() == nameof(魔物.剣のかけら個数)).Visibility = Visibility.Hidden;
-			MainDataGrid.Columns.Single(x => x.Header.ToString() == nameof(魔物.強さ変動)).Visibility = Visibility.Hidden;
-			MainDataGrid.Columns.Single(x => x.Header.ToString() == nameof(魔物.弱点値上昇)).Visibility = Visibility.Hidden;
-			MainDataGrid.Columns.Single(x => x.Header.ToString() == nameof(魔物.先制値上昇)).Visibility = Visibility.Hidden;
-			MainDataGrid.Columns.Single(x => x.Header.ToString() == nameof(魔物.魔物部位)).Visibility = Visibility.Hidden;
-			MainDataGrid.Columns.Single(x => x.Header.ToString() == nameof(魔物.戦利品)).Visibility = Visibility.Hidden;
-			MainDataGrid.Columns.Single(x => x.Header.ToString() == nameof(魔物.特殊能力)).Visibility = Visibility.Hidden;
-			MainDataGrid.Columns.Single(x => x.Header.ToString() == nameof(魔物.解説)).Visibility = Visibility.Hidden;
-
-			MainDataGrid.Columns.Single(x => x.Header.ToString() == nameof(魔物.言語)).MaxWidth = 100;
 		}
 
 		private void Button削除_Click(object sender, RoutedEventArgs e)
@@ -140,13 +151,7 @@ namespace SW_EnemyEdit_WPF
 			if (新規作成魔物分類 == 魔物分類.なし)
 			{
 				魔物編集Window window = new 魔物編集Window();
-				window.ShowDialog();
-				if (window.IsOK)
-				{
-					window.ViewModel.魔物.魔物部位 = window.ViewModel.魔物部位List;
-					this.ViewModel.魔物List.Add(window.ViewModel.魔物);
-					//Reload();
-				}
+				Show魔物作成用Window(window);
 			}
 			else
 			{
@@ -171,17 +176,9 @@ namespace SW_EnemyEdit_WPF
 					default:
 						break;
 				}
-
 				魔物編集Window window = new 魔物編集Window(m, true);
-				window.ShowDialog();
-				if (window.IsOK)
-				{
-					window.ViewModel.魔物.魔物部位 = window.ViewModel.魔物部位List;
-					this.ViewModel.魔物List.Add(window.ViewModel.魔物);
-					//Reload();
-				}
+				Show魔物作成用Window(window);
 			}
-			
 		}
 		private void Buttonコピー作成_Click(object sender, RoutedEventArgs e)
 		{
@@ -190,14 +187,8 @@ namespace SW_EnemyEdit_WPF
 				return;
 			}
 			魔物 m = MainDataGrid.SelectedItem as 魔物;
-			魔物編集Window window = new 魔物編集Window(m.Clone(), true);
-			window.ShowDialog();
-			if (window.IsOK)
-			{
-				window.ViewModel.魔物.魔物部位 = window.ViewModel.魔物部位List;
-				this.ViewModel.魔物List.Add(window.ViewModel.魔物);
-				//Reload();
-			}
+			魔物編集Window window = new 魔物編集Window(m, true);
+			Show魔物作成用Window(window);
 		}
 		private void Buttonフィルタ更新_Click(object sender, RoutedEventArgs e)
 		{
@@ -269,13 +260,7 @@ namespace SW_EnemyEdit_WPF
 11-：穢れた頭蓋骨（300G／赤A）
 " + clone.戦利品;
 			魔物編集Window window = new 魔物編集Window(clone, true);
-			window.ShowDialog();
-			if (window.IsOK)
-			{
-				window.ViewModel.魔物.魔物部位 = window.ViewModel.魔物部位List;
-				this.ViewModel.魔物List.Add(window.ViewModel.魔物);
-				//Reload();
-			}
+			Show魔物作成用Window(window);
 		}
 		private void Buttonハイレブナント作成_Click(object sender, RoutedEventArgs e)
 		{
@@ -318,13 +303,7 @@ namespace SW_EnemyEdit_WPF
 11-：穢れた仙骨（2400G／赤S）
 " + clone.戦利品;
 			魔物編集Window window = new 魔物編集Window(clone, true);
-			window.ShowDialog();
-			if (window.IsOK)
-			{
-				window.ViewModel.魔物.魔物部位 = window.ViewModel.魔物部位List;
-				this.ViewModel.魔物List.Add(window.ViewModel.魔物);
-				//Reload();
-			}
+			Show魔物作成用Window(window);
 		}
 		private void Buttonマギレプリカ作成_Click(object sender, RoutedEventArgs e)
 		{
@@ -364,13 +343,7 @@ namespace SW_EnemyEdit_WPF
 10-：希少な魔動部品（900G／黒白A）
 ";
 			魔物編集Window window = new 魔物編集Window(clone, true);
-			window.ShowDialog();
-			if (window.IsOK)
-			{
-				window.ViewModel.魔物.魔物部位 = window.ViewModel.魔物部位List;
-				this.ViewModel.魔物List.Add(window.ViewModel.魔物);
-				//Reload();
-			}
+			Show魔物作成用Window(window);
 		}
 	}
 }

@@ -88,31 +88,32 @@ namespace SW_EnemyEdit_WPF.Models
 
 		internal 魔物Item Clone()
 		{
-			魔物Item newItem = new 魔物Item();
-			newItem.Id			=Id;
-			newItem.分類		=分類;
-			newItem.LV			=LV;
-			newItem.名前		=名前;
-			newItem.名称		=名称;
-			newItem.知能		=知能;
-			newItem.知覚		=知覚;
-			newItem.反応		=反応;
-			newItem.言語		=言語;
-			newItem.生息地		=生息地;
-			newItem.知名度		=知名度;
-			newItem.弱点値		=弱点値;
-			newItem.弱点		=弱点;
-			newItem.先制値		=先制値;
-			newItem.移動速度	=移動速度;
-			newItem.生命抵抗力	=生命抵抗力;
-			newItem.精神抵抗力	=精神抵抗力;
-			newItem.穢れ点		=穢れ点;
-			newItem.部位数		=部位数;
-			newItem.部位数内訳	=部位数内訳;
-			newItem.コア部位	=コア部位;
-			newItem.特殊能力	=特殊能力;
-			newItem.戦利品		=戦利品;
-			newItem.解説		=解説;
+			魔物Item newItem = new 魔物Item {
+				Id = Id,
+				分類 = 分類,
+				LV = LV,
+				名前 = 名前,
+				名称 = 名称,
+				知能 = 知能,
+				知覚 = 知覚,
+				反応 = 反応,
+				言語 = 言語,
+				生息地 = 生息地,
+				知名度 = 知名度,
+				弱点値 = 弱点値,
+				弱点 = 弱点,
+				先制値 = 先制値,
+				移動速度 = 移動速度,
+				生命抵抗力 = 生命抵抗力,
+				精神抵抗力 = 精神抵抗力,
+				穢れ点 = 穢れ点,
+				部位数 = 部位数,
+				部位数内訳 = 部位数内訳,
+				コア部位 = コア部位,
+				特殊能力 = 特殊能力,
+				戦利品 = 戦利品,
+				解説 = 解説
+			};
 
 			return newItem;
 		}

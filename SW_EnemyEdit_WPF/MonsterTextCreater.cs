@@ -23,8 +23,9 @@ namespace SW_EnemyEdit_WPF
 			bool isSW25 = false
 			)
 		{
+			string nl = Environment.NewLine;
 			string[] alphabet = new string[26];
-			for(int i=0;i<alphabet.Count(); i++)
+			for(int i=0; i<alphabet.Count(); i++)
 			{
 				alphabet[i] = ((char)('A' + i)).ToString();
 			}
@@ -57,15 +58,15 @@ namespace SW_EnemyEdit_WPF
 				{
 					TP += bui.瞬間打撃点 == TD瞬間打撃点分類.なし ? 0 : int.Parse(bui.瞬間打撃点.ToString().Remove(0, 2)) * bui.瞬間打撃点回数;
 					TP += bui.瞬間防護点 == TD瞬間防護点分類.なし ? 0 : int.Parse(bui.瞬間防護点.ToString().Remove(0, 2));
-					TP += bui.瞬間達成値== TD瞬間達成値分類.なし ? 0 : int.Parse(bui.瞬間達成値.ToString().Remove(0, 2));
-					TP += bui.追加攻撃== TD追加攻撃分類.なし ? 0 : int.Parse(bui.追加攻撃.ToString().Remove(0, 2));
-					TP += bui.呪いの波動== TD呪いの波動分類.なし ? 0 : int.Parse(bui.呪いの波動.ToString().Remove(0, 2));
-					TP += bui.世界の汚染== TD世界の汚染分類.なし ? 0 : int.Parse(bui.世界の汚染.ToString().Remove(0, 2));
+					TP += bui.瞬間達成値 == TD瞬間達成値分類.なし ? 0 : int.Parse(bui.瞬間達成値.ToString().Remove(0, 2));
+					TP += bui.追加攻撃 == TD追加攻撃分類.なし ? 0 : int.Parse(bui.追加攻撃.ToString().Remove(0, 2));
+					TP += bui.呪いの波動 == TD呪いの波動分類.なし ? 0 : int.Parse(bui.呪いの波動.ToString().Remove(0, 2));
+					TP += bui.世界の汚染 == TD世界の汚染分類.なし ? 0 : int.Parse(bui.世界の汚染.ToString().Remove(0, 2));
 				}
 			}
 			if(TP != 0)
 			{
-				result = $"トレジャーポイント：{TP}\r\n\r\n";
+				result = $"トレジャーポイント：{TP}{nl}{nl}";
 			}
 			if (style == 出力分類.通常)
 			{
@@ -83,9 +84,13 @@ namespace SW_EnemyEdit_WPF
 生命抵抗力：{data.生命抵抗力}（{data.生命抵抗力 + 7}）　精神抵抗力{data.精神抵抗力}（{data.精神抵抗力 + 7}）
 弱点：{(string.IsNullOrWhiteSpace(data.弱点) ? なし : data.弱点)}";
 
-					foreach (var v in data.魔物部位)
-					{
-						strBuild += $"\r\n{(string.IsNullOrWhiteSpace(v.部位名) ? v.攻撃方法 : v.部位名 + "（" + (string.IsNullOrWhiteSpace(v.攻撃方法) ? なし : v.攻撃方法) + "）")}";
+					foreach (var v in data.魔物部位) {
+						if( string.IsNullOrWhiteSpace(v.部位名) ) {
+							strBuild += v.攻撃方法;
+						}
+						else {
+							strBuild += $"{nl}{v.部位名}({(string.IsNullOrWhiteSpace(v.攻撃方法) ? なし : v.攻撃方法)})";
+						}
 						if (string.IsNullOrWhiteSpace(v.攻撃方法))
 						{
 							strBuild += $"　命中力－　打撃点－";
@@ -96,24 +101,26 @@ namespace SW_EnemyEdit_WPF
 						}
 						strBuild += $"　回避力{v.回避力}（{v.回避力 + 7}）　防護点{v.防護点}";
 						strBuild += $"　HP{v.HP}　MP{v.MP}";
-						if (data.魔物部位.Count() > 1)
+						if (data.魔物部位.Count() > 1 && v.コア部位 )
 						{
-							strBuild += v.コア部位 ? "　コア部位" : "";
+							strBuild += "　コア部位";
 						}
 						if (v.剣のかけら個数 > 0)
 						{
-							strBuild += "　剣のかけら" + v.剣のかけら個数.ToString();
+							strBuild += $"　剣のかけら{v.剣のかけら個数}";
 						}
 					}
-					strBuild += $"\r\n\r\n【特殊能力】\r\n{(string.IsNullOrWhiteSpace(data.特殊能力) ? なし : data.特殊能力)}";
-					strBuild += $"\r\n\r\n【戦利品】\r\n{(string.IsNullOrWhiteSpace(data.戦利品) ? なし : data.戦利品)}";
+					strBuild += $"{nl}{nl}【特殊能力】{nl}";
+					strBuild += string.IsNullOrWhiteSpace(data.特殊能力) ? なし : data.特殊能力;
+					strBuild += $"{nl}{nl}【戦利品】{nl}";
+					strBuild += string.IsNullOrWhiteSpace(data.戦利品) ? なし : data.戦利品;
 					if (!string.IsNullOrWhiteSpace(data.解説))
 					{
-						strBuild += $"\r\n\r\n【解説】\r\n{data.解説}";
+						strBuild += $"{nl}{nl}【解説】{nl}{data.解説}";
 					}
 					resultList.Add(strBuild);
 				}
-				result += string.Join("\r\n\r\n", resultList);
+				result += string.Join(nl + nl, resultList);
 			}
 			else if (style == 出力分類.ステータスのみ)
 			{
@@ -132,7 +139,7 @@ namespace SW_EnemyEdit_WPF
 							var data = v.魔物部位.First();
 							if (g.Count() == 1)
 							{
-								result += $"{名称}";
+								result += 名称;
 							}
 							else
 							{
@@ -151,9 +158,9 @@ namespace SW_EnemyEdit_WPF
 							result += $"　生命抵抗{first.生命抵抗力}（{first.生命抵抗力+7}）　精神抵抗{first.精神抵抗力}（{first.精神抵抗力+7}）";
 							if (v.剣のかけら個数 > 0)
 							{
-								result += "　剣のかけら" + v.剣のかけら個数.ToString();
+								result += $"　剣のかけら{v.剣のかけら個数}";
 							}
-							result += "\r\n";
+							result += nl;
 							count++;
 						}
 					}
@@ -164,14 +171,14 @@ namespace SW_EnemyEdit_WPF
 						{
 							if (g.Count() == 1)
 							{
-								result += $"{名称}";
+								result += 名称;
 							}
 							else
 							{
 								result += $"{名称}{alphabet[count - 1]}";
 							}
 							result += $"　生命抵抗{monster.生命抵抗力}（{monster.生命抵抗力+7}）　精神抵抗{monster.精神抵抗力}（{monster.精神抵抗力+7}）";
-							result += "\r\n";
+							result += nl;
 
 							foreach (var data in monster.魔物部位)
 							{
@@ -191,9 +198,9 @@ namespace SW_EnemyEdit_WPF
 								}
 								if (data.剣のかけら個数 > 0)
 								{
-									result += "　剣のかけら" + data.剣のかけら個数.ToString();
+									result += $"　剣のかけら{data.剣のかけら個数}";
 								}
-								result += "\r\n";
+								result += nl;
 							}
 							count++;
 						}
@@ -212,7 +219,7 @@ namespace SW_EnemyEdit_WPF
 					{
 						int count = 1;
 						result += $"{名称} 生命抵抗{first.生命抵抗力}({first.生命抵抗力+7}) 精神抵抗{first.精神抵抗力}({first.精神抵抗力+7})";
-						result += "\r\n";
+						result += nl;
 						foreach (var v in g)
 						{
 							var data = v.魔物部位.First();
@@ -226,9 +233,9 @@ namespace SW_EnemyEdit_WPF
 							result += $"　HP{data.HP}/{data.HP} MP{data.MP}/{data.MP}";
 							if (v.剣のかけら個数 > 0)
 							{
-								result += "　剣のかけら" + v.剣のかけら個数.ToString();
+								result += $"　剣のかけら{v.剣のかけら個数}";
 							}
-							result += "\r\n";
+							result += nl;
 							count++;
 						}
 						var 部位first = first.魔物部位.First();
@@ -241,7 +248,7 @@ namespace SW_EnemyEdit_WPF
 							result += $"　命中{部位first.命中力}({部位first.命中力 + 7}) 打撃2d+{部位first.打撃点}";
 						}
 						result += $" 回避{部位first.回避力}({部位first.回避力 + 7})防護{部位first.防護点}";
-						result += "\r\n";
+						result += nl;
 					}
 					else
 					{
@@ -250,14 +257,14 @@ namespace SW_EnemyEdit_WPF
 						{
 							if (g.Count() == 1)
 							{
-								result += $"{名称}";
+								result += 名称;
 							}
 							else
 							{
 								result += $"{名称}{alphabet[count - 1]}";
 							}
 							result +=$"生命抵抗{monster.生命抵抗力}({monster.生命抵抗力+7}) 精神抵抗{monster.精神抵抗力}({monster.精神抵抗力+7})";
-							result += "\r\n";
+							result += nl;
 
 							foreach (var data in monster.魔物部位)
 							{
@@ -270,7 +277,7 @@ namespace SW_EnemyEdit_WPF
 								{
 									result += " かけら" + data.剣のかけら個数.ToString();
 								}
-								result += "\r\n";
+								result += nl;
 								if (string.IsNullOrWhiteSpace(data.攻撃方法))
 								{
 									result += $"　命中－ 打撃点－";
@@ -280,7 +287,7 @@ namespace SW_EnemyEdit_WPF
 									result += $"　命中{data.命中力}({data.命中力 + 7}) 打撃2d+{data.打撃点}";
 								}
 								result += $" 回避{data.回避力}({data.回避力 + 7}) 防護{data.防護点}";
-								result += "\r\n";
+								result += nl;
 							}
 							count++;
 						}
@@ -288,8 +295,8 @@ namespace SW_EnemyEdit_WPF
 				}
 				foreach (var g in group)
 				{
-					result += "\r\n";
-					result += "\r\n";
+					result += nl;
+					result += nl;
 					var data = g.First();
 					string 正式名称 = data.ネームド ? $"{data.名前}（{data.名称}）" : data.名称;
 					result += $@"LV{data.LV}　{正式名称}　{data.分類}
@@ -298,11 +305,11 @@ namespace SW_EnemyEdit_WPF
 知名度／弱点値：{data.知名度}/{data.弱点値}　先制値：{data.先制値}　移動速度：{data.移動速度}
 弱点：{(string.IsNullOrWhiteSpace(data.弱点) ? なし : data.弱点)}";
 
-					result += $"\r\n\r\n【特殊能力】\r\n{(string.IsNullOrWhiteSpace(data.特殊能力) ? なし : data.特殊能力)}";
-					result += $"\r\n\r\n【戦利品】\r\n{(string.IsNullOrWhiteSpace(data.戦利品) ? なし : data.戦利品)}";
+					result += $"{nl}{nl}【特殊能力】{nl}{(string.IsNullOrWhiteSpace(data.特殊能力) ? なし : data.特殊能力)}";
+					result += $"{nl}{nl}【戦利品】{nl}{(string.IsNullOrWhiteSpace(data.戦利品) ? なし : data.戦利品)}";
 					if (!string.IsNullOrWhiteSpace(data.解説))
 					{
-						result += $"\r\n\r\n【解説】\r\n{data.解説}";
+						result += $"{nl}{nl}【解説】{nl}{data.解説}";
 					}
 				}
 			}
@@ -321,20 +328,26 @@ namespace SW_EnemyEdit_WPF
 生息地：{data.生息地}　反応：{data.反応}
 知名度/弱点値：{data.知名度}/{data.弱点値}　先制値：{data.先制値}　移動速度：{data.移動速度}
 生命抵抗力：{data.生命抵抗力}({data.生命抵抗力 + 7})　精神抵抗力{data.精神抵抗力}({data.精神抵抗力 + 7})
-弱点：{(string.IsNullOrWhiteSpace(data.弱点) ? なし : data.弱点)}"+ "\r\n";
+弱点：{(string.IsNullOrWhiteSpace(data.弱点) ? なし : data.弱点)}"+ nl;
 
 					if (data.弱点値上昇 != TD弱点値上昇分類.なし)
 					{
-						strBuild += "トレジャー強化「弱点値上昇+" + (int)data.弱点値上昇 + "」\r\n";
+						strBuild += "トレジャー強化「弱点値上昇+" + (int)data.弱点値上昇 + "」" + nl;
 					}
 					if (data.先制値上昇 != TD先制値上昇分類.なし)
 					{
-						strBuild += "トレジャー強化「先制値上昇+" + (int)data.先制値上昇 + "」\r\n";
+						strBuild += "トレジャー強化「先制値上昇+" + (int)data.先制値上昇 + "」" + nl;
 					}
 
 					foreach (var v in data.魔物部位)
 					{
-						strBuild += $"\r\n{(string.IsNullOrWhiteSpace(v.部位名) ? v.攻撃方法 : v.部位名 + "(" + (string.IsNullOrWhiteSpace(v.攻撃方法) ? なし : v.攻撃方法) + ")")}";
+						if( string.IsNullOrWhiteSpace(v.部位名) )
+						{
+							strBuild += v.攻撃方法;
+						}
+						else {
+							strBuild += $"{nl}{v.部位名}({(string.IsNullOrWhiteSpace(v.攻撃方法) ? なし : v.攻撃方法) })";
+						}
 						strBuild += $"　HP{v.HP}　MP{v.MP}";
 						if (data.魔物部位.Count() > 1)
 						{
@@ -342,29 +355,29 @@ namespace SW_EnemyEdit_WPF
 						}
 						if (v.剣のかけら個数 > 0)
 						{
-							strBuild += "　剣のかけら" + v.剣のかけら個数.ToString();
+							strBuild += $"　剣のかけら{v.剣のかけら個数}";
 						}
 						if (v.瞬間打撃点 != TD瞬間打撃点分類.なし)
 						{
 							strBuild += "　瞬間打撃点+" + (int)v.瞬間打撃点 + "×" + v.瞬間打撃点回数;
-							特殊能力追加 += "\r\n「トレジャー強化：瞬間打撃点」";
-							特殊能力追加 += "\r\n　打撃点決定の2dを振り終わった後に、打撃点を「指定された値」上昇させられます。";
-							特殊能力追加 += "\r\n　1Rの間に対象1体ごとに1回しか使えません。";
-							特殊能力追加 += "\r\n　1日に指定した回数しか使えません。";
+							特殊能力追加 += nl + "「トレジャー強化：瞬間打撃点」";
+							特殊能力追加 += nl + "　打撃点決定の2dを振り終わった後に、打撃点を「指定された値」上昇させられます。";
+							特殊能力追加 += nl + "　1Rの間に対象1体ごとに1回しか使えません。";
+							特殊能力追加 += nl + "　1日に指定した回数しか使えません。";
 						}
 						if (v.瞬間防護点 != TD瞬間防護点分類.なし)
 						{
 							strBuild += "　瞬間防護点+" + (int)v.瞬間防護点;
-							特殊能力追加 += "\r\n「トレジャー強化：瞬間防護点」";
-							特殊能力追加 += "\r\n　物理ダメージを受けて防護点を適用する時、防護点を「指定された値」上昇させられます。";
-							特殊能力追加 += "\r\n　1日に1回しか使えません。";
+							特殊能力追加 += nl + "「トレジャー強化：瞬間防護点」";
+							特殊能力追加 += nl + "　物理ダメージを受けて防護点を適用する時、防護点を「指定された値」上昇させられます。";
+							特殊能力追加 += nl + "　1日に1回しか使えません。";
 						}
 						if (v.瞬間達成値 != TD瞬間達成値分類.なし)
 						{
 							strBuild += "　瞬間達成値+" + (int)v.瞬間達成値;
-							特殊能力追加 += "\r\n「トレジャー強化：瞬間達成値」";
-							特殊能力追加 += "\r\n　行為判定の達成値を求めた後に、達成値を「指定された値」上昇させられます。";
-							特殊能力追加 += "\r\n　1日に1回しか使えません。";
+							特殊能力追加 += nl + "「トレジャー強化：瞬間達成値」";
+							特殊能力追加 += nl + "　行為判定の達成値を求めた後に、達成値を「指定された値」上昇させられます。";
+							特殊能力追加 += nl + "　1日に1回しか使えません。";
 						}
 						if (v.追加攻撃 != TD追加攻撃分類.なし)
 						{
@@ -386,47 +399,47 @@ namespace SW_EnemyEdit_WPF
 									strBuild += "　追加攻撃:④⑤⑥／３";
 									break;
 							}
-							特殊能力追加 += "\r\n「トレジャー強化：追加攻撃」";
-							特殊能力追加 += "\r\n　「対象の出目」／「発動回数」";
-							特殊能力追加 += "\r\n　自身の手番終了時に1dを振り、「対象の出目」が出ると近接攻撃を1回追加で行えます。";
-							特殊能力追加 += "\r\n　1日に「発動回数」回しか発動しません";
+							特殊能力追加 += nl + "「トレジャー強化：追加攻撃」";
+							特殊能力追加 += nl + "　「対象の出目」／「発動回数」";
+							特殊能力追加 += nl + "　自身の手番終了時に1dを振り、「対象の出目」が出ると近接攻撃を1回追加で行えます。";
+							特殊能力追加 += nl + "　1日に「発動回数」回しか発動しません";
 						}
 						if (v.呪いの波動 != TD呪いの波動分類.なし)
 						{
 							strBuild += "　呪いの波動:" + (int)v.呪いの波動 + "点";
-							特殊能力追加 += "\r\n「トレジャー強化：⏩呪いの波動」";
-							特殊能力追加 += "\r\n　使用宣言後、6Rの間持続します。";
-							特殊能力追加 += "\r\n　自身の手番終了時に自動的に「射程：接触」「対象：１体」に「抵抗：必中」で「指定された値」点の呪い属性の確定ダメージを与えます";
-							特殊能力追加 += "\r\n　1日に1回しか使えません。";
+							特殊能力追加 += nl + "「トレジャー強化：⏩呪いの波動」";
+							特殊能力追加 += nl + "　使用宣言後、6Rの間持続します。";
+							特殊能力追加 += nl + "　自身の手番終了時に自動的に「射程：接触」「対象：１体」に「抵抗：必中」で「指定された値」点の呪い属性の確定ダメージを与えます";
+							特殊能力追加 += nl + "　1日に1回しか使えません。";
 						}
 						if (v.世界の汚染 != TD世界の汚染分類.なし)
 						{
 							strBuild += "　世界の汚染:威力" + (int)v.世界の汚染;
-							特殊能力追加 += "\r\n「トレジャー強化：世界の汚染」";
-							特殊能力追加 += "\r\n　戦闘行為によって始めて自身のHPにダメージを受けたとき、自動的に";
-							特殊能力追加 += "\r\n　「射程：自身」「対象：全エリア（半径20m）／すべて」に「抵抗：必中」で、「指定された威力／🄫10」の毒属性魔法ダメージを与えます。";
-							特殊能力追加 += "\r\n　対象から任意のキャラクターを除外できます。";
-							特殊能力追加 += "\r\n　1日に1回しか発動しません。";
+							特殊能力追加 += nl + "「トレジャー強化：世界の汚染」";
+							特殊能力追加 += nl + "　戦闘行為によって始めて自身のHPにダメージを受けたとき、自動的に";
+							特殊能力追加 += nl + "　「射程：自身」「対象：全エリア（半径20m）／すべて」に「抵抗：必中」で、「指定された威力／🄫10」の毒属性魔法ダメージを与えます。";
+							特殊能力追加 += nl + "　対象から任意のキャラクターを除外できます。";
+							特殊能力追加 += nl + "　1日に1回しか発動しません。";
 						}
 						if (string.IsNullOrWhiteSpace(v.攻撃方法))
 						{
-							strBuild += $"\r\n　命中－　打撃－";
+							strBuild += $"{nl}　命中－　打撃－";
 						}
 						else
 						{
-							strBuild += $"\r\n　命中{v.命中力}({v.命中力 + 7})　打撃{v.打撃点}({v.打撃点 + 7})";
+							strBuild += $"{nl}　命中{v.命中力}({v.命中力 + 7})　打撃{v.打撃点}({v.打撃点 + 7})";
 						}
 						strBuild += $"　回避{v.回避力}({v.回避力 + 7})　防護{v.防護点}";
 					}
-					strBuild += $"\r\n\r\n【特殊能力】\r\n{(string.IsNullOrWhiteSpace(data.特殊能力+ 特殊能力追加) ? なし : data.特殊能力+ 特殊能力追加)}";
-					strBuild += $"\r\n\r\n【戦利品】\r\n{(string.IsNullOrWhiteSpace(data.戦利品) ? なし : data.戦利品)}";
+					strBuild += $"{nl}{nl}【特殊能力】{nl}{(string.IsNullOrWhiteSpace(data.特殊能力+ 特殊能力追加) ? なし : data.特殊能力+ 特殊能力追加)}";
+					strBuild += $"{nl}{nl}【戦利品】{nl}{(string.IsNullOrWhiteSpace(data.戦利品) ? なし : data.戦利品)}";
 					if (!string.IsNullOrWhiteSpace(data.解説))
 					{
-						strBuild += $"\r\n\r\n【解説】\r\n{data.解説}";
+						strBuild += $"{nl}{nl}【解説】{nl}{data.解説}";
 					}
 					resultList.Add(strBuild);
-					result += string.Join("\r\n\r\n", resultList);
 				}
+				result += string.Join(nl + nl, resultList);
 			}
 
 			return result;

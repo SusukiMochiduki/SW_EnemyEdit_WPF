@@ -34,16 +34,17 @@ namespace SW_EnemyEdit_WPF.Models
 
 		internal 魔物部位Item Clone()
 		{
-			魔物部位Item newItem = new 魔物部位Item();
-			newItem.Id = this.Id;
-			newItem.魔物Id = this.魔物Id;
-			newItem.No = this.No;
-			newItem.攻撃方法 = this.攻撃方法;
-			newItem.命中力 = this.命中力;
-			newItem.打撃点 = this.打撃点;
-			newItem.回避力 = this.回避力;
-			newItem.HP = this.HP;
-			newItem.MP = this.MP;
+			魔物部位Item newItem = new 魔物部位Item {
+				Id = this.Id,
+				魔物Id = this.魔物Id,
+				No = this.No,
+				攻撃方法 = this.攻撃方法,
+				命中力 = this.命中力,
+				打撃点 = this.打撃点,
+				回避力 = this.回避力,
+				HP = this.HP,
+				MP = this.MP
+			};
 
 			return newItem;
 		}

@@ -39,7 +39,7 @@ namespace SW_EnemyEdit_WPF
 					?.OrderBy(x => x.分類)
 					?.OrderBy(x => x.LV)
 					?.ToList();
-				全魔物 = data == null ? new List<魔物>() : data;
+				全魔物 = data ?? new List<魔物>();
 				foreach (var v in this.全魔物)
 				{
 					//魔物部位の読み込み
@@ -105,6 +105,9 @@ namespace SW_EnemyEdit_WPF
 
 		private void ButtonOutput_Click(object sender, RoutedEventArgs e)
 		{
+			if( ComboBoxOutput.SelectedItem == null ) {
+				return;
+			}
 			出力分類 分類 = (出力分類)ComboBoxOutput.SelectedItem;
 			TextBoxOutput.Text = MonsterTextCreater.Create(this.ViewModel.ピックアップ魔物, 分類, checkBoxOutputSW25.IsChecked.Value);
 		}
@@ -121,7 +124,10 @@ namespace SW_EnemyEdit_WPF
 		
 		private void DataGridピックアップ魔物_KeyDown(object sender, KeyEventArgs e)
 		{
-			if (e.Key == Key.F1 && DataGridピックアップ魔物.SelectedItem != null)
+			if( DataGridピックアップ魔物.SelectedItem == null ) {
+				return;
+			}
+			if (e.Key == Key.F1)
 			{
 				魔物 m = DataGridピックアップ魔物.SelectedItem as 魔物;
 				魔物 copy = m.Clone();
@@ -131,15 +137,7 @@ namespace SW_EnemyEdit_WPF
 				{
 					foreach(var v in copy.魔物部位)
 					{
-						var target = m.魔物部位.Single(x => x.Id == v.Id);
-						target.剣のかけら個数 = v.剣のかけら個数;
-						target.瞬間打撃点 = v.瞬間打撃点;
-						target.瞬間打撃点回数 = v.瞬間打撃点回数;
-						target.瞬間防護点 = v.瞬間防護点;
-						target.瞬間達成値 = v.瞬間達成値;
-						target.追加攻撃 = v.追加攻撃;
-						target.呪いの波動 = v.呪いの波動;
-						target.世界の汚染 = v.世界の汚染;
+						m.魔物部位.Single(x => x.Id == v.Id).SetTPInfo(v);
 					}
 					m.剣のかけら個数 = copy.魔物部位.Sum(x => x.剣のかけら個数);
 					m.剣のかけら振分 = 剣のかけら振分分類.任意;

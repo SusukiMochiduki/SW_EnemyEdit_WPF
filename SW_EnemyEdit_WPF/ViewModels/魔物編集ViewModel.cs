@@ -20,8 +20,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				_魔物部位List = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("魔物部位List"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("魔物部位List"));
 			}
 		}
 		private 魔物 _魔物;
@@ -34,8 +33,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				_魔物 = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("魔物"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("魔物"));
 			}
 		}
 
@@ -48,8 +46,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				魔物.Id = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("Id"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Id"));
 			}
 		}
 		public bool オリジナル
@@ -61,8 +58,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				魔物.オリジナル = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("オリジナル"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("オリジナル"));
 			}
 		}
 		public bool SW25
@@ -74,8 +70,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				魔物.SW25 = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("SW25"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SW25"));
 			}
 		}
 		public bool SW20
@@ -87,8 +82,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				魔物.SW20 = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("SW20"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SW20"));
 			}
 		}
 		public string 出典
@@ -100,8 +94,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				魔物.出典 = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("出典"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("出典"));
 			}
 		}
 		public string タグ
@@ -113,8 +106,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				魔物.タグ = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("タグ"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("タグ"));
 			}
 		}
 		public string 分類
@@ -126,8 +118,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				魔物.分類 = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("魔物分類"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("魔物分類"));
 			}
 		}
 		public int LV
@@ -139,8 +130,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				魔物.LV = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("LV"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("LV"));
 			}
 		}
 		public bool ネームド
@@ -152,8 +142,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				魔物.ネームド = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("ネームド"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ネームド"));
 			}
 		}
 		public string 名前
@@ -165,8 +154,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				魔物.名前 = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("名前"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("名前"));
 			}
 		}
 		public string 名称
@@ -178,8 +166,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				魔物.名称 = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("名称"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("名称"));
 			}
 		}
 		public string 知能
@@ -191,8 +178,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				魔物.知能 = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("知能"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("知能"));
 			}
 		}
 		public string 知覚
@@ -204,8 +190,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				魔物.知覚 = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("知覚"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("知覚"));
 			}
 		}
 		public string 反応
@@ -217,8 +202,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				魔物.反応 = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("反応"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("反応"));
 			}
 		}
 		public string 言語
@@ -230,8 +214,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				魔物.言語 = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("言語"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("言語"));
 			}
 		}
 		public string 生息地
@@ -243,8 +226,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				魔物.生息地 = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("魔物.生息地"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("魔物.生息地"));
 			}
 		}
 		public int 知名度
@@ -256,8 +238,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				魔物.知名度 = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("知名度"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("知名度"));
 			}
 		}
 		public int 弱点値
@@ -269,8 +250,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				魔物.弱点値 = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("弱点値"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("弱点値"));
 			}
 		}
 		public string 弱点
@@ -282,8 +262,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				魔物.弱点 = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("弱点"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("弱点"));
 			}
 		}
 		public int 先制値
@@ -295,8 +274,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				魔物.先制値 = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("先制値"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("先制値"));
 			}
 		}
 		public string 移動速度
@@ -308,8 +286,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				魔物.移動速度 = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("移動速度"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("移動速度"));
 			}
 		}
 		public int 生命抵抗力
@@ -322,8 +299,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			{
 				魔物.生命抵抗力 = value;
 				this.生命抵抗力固定値 = $"({value+7})";
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("生命抵抗力"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("生命抵抗力"));
 			}
 		}
 		private string _生命抵抗力固定値;
@@ -336,8 +312,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				_生命抵抗力固定値 = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("生命抵抗力固定値"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("生命抵抗力固定値"));
 			}
 		}
 		public int 精神抵抗力
@@ -350,8 +325,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			{
 				魔物.精神抵抗力 = value;
 				this.精神抵抗力固定値 = $"({value + 7})";
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("精神抵抗力"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("精神抵抗力"));
 			}
 		}
 		private string _精神抵抗力固定値;
@@ -364,8 +338,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				_精神抵抗力固定値 = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("精神抵抗力固定値"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("精神抵抗力固定値"));
 			}
 		}
 		public int 穢れ点
@@ -377,8 +350,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				魔物.穢れ点 = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("穢れ点"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("穢れ点"));
 			}
 		}
 		public int 部位数
@@ -390,8 +362,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				魔物.部位数 = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("部位数"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("部位数"));
 			}
 		}
 		public string 部位数内訳
@@ -403,8 +374,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				魔物.部位数内訳 = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("部位数内訳"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("部位数内訳"));
 			}
 		}
 		public string コア部位
@@ -416,8 +386,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				魔物.コア部位 = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("コア部位"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("コア部位"));
 			}
 		}
 		public string 特殊能力
@@ -429,8 +398,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				魔物.特殊能力 = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("特殊能力"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("特殊能力"));
 			}
 		}
 		public string 戦利品
@@ -442,8 +410,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				魔物.戦利品 = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("魔物.戦利品"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("魔物.戦利品"));
 			}
 		}
 		public string 解説
@@ -455,8 +422,7 @@ namespace SW_EnemyEdit_WPF.ViewModels
 			set
 			{
 				魔物.解説 = value;
-				var h = PropertyChanged;
-				if (h != null) h(this, new PropertyChangedEventArgs("解説"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("解説"));
 			}
 		}
 

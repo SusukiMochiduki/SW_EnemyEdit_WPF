@@ -4,6 +4,7 @@
 -------------------
 魔物データを人力タイプしてDBに登録し、そのデータをセッション時に使うデータとして出力するツールです。
 
+
 -------------------
 2.どういう開発環境？
 -------------------
@@ -16,3 +17,11 @@ C#.net WPF
 EntityFramework 6
 
 EntityFramewok.SqlServer
+
+Microsoft SQL Server Express LocalDB 
+
+
+-------------------
+3.動かし方
+-------------------
+Database.mdfをLocalDBに登録してバイナリを起動。
